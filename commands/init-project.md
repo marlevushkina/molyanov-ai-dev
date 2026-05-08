@@ -33,9 +33,21 @@ cp -rp ~/.claude/shared/templates/new-project/. .
 
 After copy:
 - Verify `.claude/skills/project-knowledge/` exists
+- Verify `LOG.md` exists (created from template)
 - Security check: look for sensitive files in `$OLD_DIR/` (`.env*`, `*.key`, `*.pem`, `credentials.json`, `secrets/`) not covered by `.gitignore`. If found — add to `.gitignore` before proceeding.
 
-## 3. Init Git and GitHub
+## 3. Initialize LOG.md
+
+Replace placeholders in `LOG.md`:
+- `{PROJECT_NAME}` → project name (from folder name or user input)
+- `{DATE}` → today's date
+
+If old files exist in `$OLD_DIR/`, update the "Remaining" field:
+```
+**Remaining:** Review old/ folder for existing work to migrate
+```
+
+## 4. Init Git and GitHub
 
 1. Init git if not initialized
 2. Verify `gh` CLI is installed and authenticated
@@ -44,10 +56,12 @@ After copy:
 5. Initial commit and push to current branch
 6. Create `dev` branch, push it
 
-## 4. Final Report
+## 5. Final Report
 
 Show user:
 - GitHub URL
 - Branches created
 - Old files location (`old/`) if any existed
+- LOG.md initialized with today's date
 - Next step: run `project-planning` skill to fill project documentation
+- Tip: use `/save-progress` at the end of each session to track work
