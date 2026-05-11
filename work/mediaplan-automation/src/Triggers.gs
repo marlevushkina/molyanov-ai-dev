@@ -103,14 +103,20 @@ function debugFlowMapping() {
       continue;
     }
 
+    var col = buildColMap(sheet);
+    if (!col.HYPOTHESIS_ID) {
+      Logger.log('Не найдена колонка ID гипотезы');
+      continue;
+    }
+
     var lastRow = sheet.getLastRow();
     if (lastRow < CONFIG.DATA_START_ROW) {
       Logger.log('Нет данных');
       continue;
     }
 
-    var ids = sheet.getRange(CONFIG.DATA_START_ROW, COL.HYPOTHESIS_ID, lastRow - CONFIG.DATA_START_ROW + 1, 1).getValues();
-    var statuses = sheet.getRange(CONFIG.DATA_START_ROW, COL.STATUS, lastRow - CONFIG.DATA_START_ROW + 1, 1).getValues();
+    var ids = sheet.getRange(CONFIG.DATA_START_ROW, col.HYPOTHESIS_ID, lastRow - CONFIG.DATA_START_ROW + 1, 1).getValues();
+    var statuses = sheet.getRange(CONFIG.DATA_START_ROW, col.STATUS, lastRow - CONFIG.DATA_START_ROW + 1, 1).getValues();
 
     for (var i = 0; i < ids.length; i++) {
       var hypothesisId = String(ids[i][0]).trim();

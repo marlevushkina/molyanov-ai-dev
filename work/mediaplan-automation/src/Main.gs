@@ -2,6 +2,19 @@
 // ГЛАВНАЯ ФУНКЦИЯ
 // ============================================================
 
+function buildColMap(sheet) {
+  var headers = sheet.getRange(CONFIG.HEADER_ROW, 1, 1, sheet.getLastColumn()).getValues()[0];
+  var col = {};
+  for (var i = 0; i < headers.length; i++) {
+    var header = String(headers[i]).trim();
+    var key = HEADER_MAP[header];
+    if (key) {
+      col[key] = i + 1; // 1-based
+    }
+  }
+  return col;
+}
+
 function syncGetSalesToSheet() {
   const flows = getAllFlows();
   if (!flows || flows.length === 0) {
@@ -37,20 +50,27 @@ function syncClientSheet(client, flowMap) {
     return 0;
   }
 
+  const col = buildColMap(sheet);
+  if (!col.HYPOTHESIS_ID || !col.INVITES_SENT) {
+    Logger.log('Не удалось определить колонки в ' + client.name + '. Проверьте заголовки.');
+    return 0;
+  }
+
   const lastRow = sheet.getLastRow();
   if (lastRow < CONFIG.DATA_START_ROW) {
     Logger.log('Нет данных для обновления в ' + client.name);
     return 0;
   }
 
-  const dataRange = sheet.getRange(CONFIG.DATA_START_ROW, 1, lastRow - CONFIG.DATA_START_ROW + 1, 51);
+  const totalCols = sheet.getLastColumn();
+  const dataRange = sheet.getRange(CONFIG.DATA_START_ROW, 1, lastRow - CONFIG.DATA_START_ROW + 1, totalCols);
   const data = dataRange.getValues();
 
   let updatedCount = 0;
   for (let i = 0; i < data.length; i++) {
     const row = data[i];
-    const hypothesisId = String(row[COL.HYPOTHESIS_ID - 1]).trim();
-    const status = String(row[COL.STATUS - 1]).trim();
+    const hypothesisId = String(row[col.HYPOTHESIS_ID - 1]).trim();
+    const status = String(row[col.STATUS - 1]).trim();
 
     if (!hypothesisId || SKIP_STATUSES.includes(status)) {
       continue;
@@ -81,7 +101,7 @@ function syncClientSheet(client, flowMap) {
     Logger.log(hypothesisId + ': invites=' + metrics.invitesSent + ', connects=' + metrics.connects + ', totalReplies=' + metrics.totalReplies);
 
     const rowNum = CONFIG.DATA_START_ROW + i;
-    writeMetricsToRow(sheet, rowNum, row, metrics);
+    writeMetricsToRow(sheet, rowNum, row, metrics, col);
     updatedCount++;
   }
 
