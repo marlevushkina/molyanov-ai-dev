@@ -63,5 +63,16 @@ Show user:
 - Branches created
 - Old files location (`old/`) if any existed
 - LOG.md initialized with today's date
-- Next step: run `project-planning` skill to fill project documentation
-- Tip: use `/save-progress` at the end of each session to track work
+
+## 6. Next Step Hint
+
+Always end with this message to the user:
+
+```
+Проект создан! Вот что можно сделать дальше:
+
+  /new-user-spec  — описать первую задачу/фичу (я задам вопросы, вы отвечаете)
+  /init-project-knowledge — заполнить документацию проекта
+
+Совет: в конце каждой сессии используйте /save-progress чтобы сохранить прогресс.
+```

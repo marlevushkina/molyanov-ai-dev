@@ -24,3 +24,16 @@ Invoke Skill tool: `Skill(skill: "feature-execution")`
 
 Follow the loaded feature-execution skill workflow.
 The skill checks `checkpoint.yml` in Phase 1 and handles resume automatically.
+
+## Next Step Hint
+
+After all tasks are completed, always end with:
+
+```
+Фича выполнена! Все задачи прошли ревью. Вот что дальше:
+
+  /done {feature}   — финализировать: обновить документацию, архивировать фичу
+  /save-progress    — или сначала сохранить прогресс, если хотите проверить результат
+
+Совет: протестируйте результат перед /done. Если что-то не так — просто скажите что исправить.
+```

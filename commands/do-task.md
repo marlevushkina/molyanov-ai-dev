@@ -56,3 +56,15 @@ Execute a spec-driven task with validation and status tracking.
 - [ ] decisions.md entry written with reviews and verification results
 - [ ] Git commit created with task reference
 - [ ] Every acceptance criterion from task file is met
+
+## Next Step Hint
+
+After task is completed, always end with:
+
+```
+Задача выполнена и проверена! Вот что дальше:
+
+  /do-task {next_task}  — следующая задача
+  /save-progress        — сохранить прогресс и закончить на сегодня
+  /done {feature}       — если ВСЕ задачи выполнены, финализировать фичу
+```

@@ -66,3 +66,16 @@ Move `work/{feature}/` → `work/completed/{feature}/` (create `work/completed/`
 - [ ] Feature archived to work/completed/
 - [ ] Changes committed
 - [ ] Report delivered to user
+
+## Next Step Hint
+
+After feature is finalized, always end with:
+
+```
+Фича завершена и задокументирована!
+
+  /new-user-spec    — начать следующую фичу (описать новую задачу)
+  /save-progress    — сохранить прогресс и закончить на сегодня
+
+Архив: work/completed/{feature}/
+```

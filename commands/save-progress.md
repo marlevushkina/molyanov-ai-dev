@@ -81,3 +81,14 @@ Do NOT push — just commit locally.
 - [ ] Entry inserted at the top of LOG.md
 - [ ] Archive check performed if needed
 - [ ] Committed (if git repo)
+
+## Next Step Hint
+
+After progress is saved, always end with:
+
+```
+Прогресс сохранён! Когда вернётесь:
+
+  Просто откройте проект — я прочитаю LOG.md и вспомню, где остановились.
+  Незавершённые задачи и следующие шаги записаны в лог.
+```
